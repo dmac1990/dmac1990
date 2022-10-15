@@ -1,0 +1,29 @@
+#Unzipper
+import os, zipfile
+from pathlib import Path
+p = Path.cwd()
+run = 1
+while run >= 1:
+    print("do you want your files installed into folders named after their zip files or not y/n?")
+    folder = input()
+    if folder == "y":
+        for file in os.listdir(p):
+            if file[-4:] == ".zip":
+                print("Extracting  " + str(file))
+                folder = file[:-4]
+                folder = os.path.normpath(folder)
+                os.mkdir(p / folder)
+                exampleZip = zipfile.ZipFile(file)
+                exampleZip.extractall(p / folder)
+                exampleZip.close
+        run = 0
+    elif folder == "n":
+        for file in os.listdir(p):
+            if file[-4:] == ".zip":
+                print("Extracting  " + str(file))
+                exampleZip = zipfile.ZipFile(file)
+                exampleZip.extractall()
+                exampleZip.close
+        run = 0
+    else:
+        print("you must enter y or n")
